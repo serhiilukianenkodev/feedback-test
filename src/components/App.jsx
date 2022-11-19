@@ -1,16 +1,30 @@
-export const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
-  );
-};
+import { Component } from 'react';
+import { FeedbackControls } from 'components/FeedbackControls/FeedbackControls';
+
+export class App extends Component {
+  state = {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  };
+
+  handleFeedback = e => {
+    const btnName = e.currentTarget.name;
+    console.log(btnName);
+
+    this.setState(prevState => {
+      return { [btnName]: prevState[btnName] + 1 };
+    });
+  };
+
+  render() {
+    return (
+      <>
+        <FeedbackControls
+          options={Object.keys(this.state)}
+          handler={this.handleFeedback}
+        ></FeedbackControls>
+      </>
+    );
+  }
+}
